@@ -1,0 +1,21 @@
+{
+   "name": "client-and-server",
+   "version": "1.0.0",
+   "description": "",
+   "main": "server.js",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node server.js"
+   },
+   "author": "",
+   "license": "ISC",
+   "dependencies": {
+      "@types/mongoose": "^5.10.5",
+      "@types/node": "^16.11.6",
+      "ejs": "^3.1.6",
+      "express": "^4.17.1",
+      "lodash": "^4.17.21",
+      "mongoose": "^5.10.19",
+      "morgan": "^1.10.0"
+   }
+}

@@ -85,6 +85,18 @@ app.get('/blog/:id', (req, res) => {
       });
 });
 
+// handling delete single blog
+app.delete('/blog/:id', (req, res) => {
+   const id = req.params.id;
+   Blog.findByIdAndDelete(id)
+      .then((result) => {
+         res.json({ redirect: '/blogs' });
+      })
+      .catch((err) => {
+         console.log(err);
+      });
+});
+
 //------
 app.get('/blogs/create', (req, res) => {
    // render create page to front end

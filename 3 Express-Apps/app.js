@@ -2,7 +2,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const Blog = require('./models/blog'); // representation of the db
+const blogRoutes = require('./routes/blogRoutes');
 
 // express app instances
 const app = express();
@@ -42,66 +42,8 @@ app.get('/about', (req, res) => {
    res.render('about', { title: 'ABOUT' });
 });
 
-// Blog routes
-// Show the data from db to the user in frontend, use .find() mthod
-app.get('/blogs', (req, res) => {
-   Blog.find()
-      .sort({ createdAt: -1 })
-      .then((result) => {
-         res.render('index', { title: 'All Blogs', blogs: result });
-      })
-      .catch((err) => {
-         console.log(err);
-      });
-});
-
-// POST
-app.post('/blogs', (req, res) => {
-   // make new db instance and use the data for user input
-   const blog = new Blog(req.body);
-
-   // *** save it to db (it's async)
-   blog
-      .save()
-      .then(() => {
-         res.redirect('/');
-      })
-      .catch((err) => {
-         console.log(err);
-      });
-});
-
-// handling single blog page
-app.get('/blog/:id', (req, res) => {
-   const id = req.params.id;
-   // Show a data from db by id
-   Blog.findById(id)
-      .then((result) => {
-         // render details page create to front end
-         res.render('details', { blog: result, title: 'Blog Details' });
-      })
-      .catch((err) => {
-         console.log(err);
-      });
-});
-
-// handling delete single blog
-app.delete('/blog/:id', (req, res) => {
-   const id = req.params.id;
-   Blog.findByIdAndDelete(id)
-      .then((result) => {
-         res.json({ redirect: '/blogs' });
-      })
-      .catch((err) => {
-         console.log(err);
-      });
-});
-
-//------
-app.get('/blogs/create', (req, res) => {
-   // render create page to front end
-   res.render('create', { title: 'CREATE' });
-});
+// blog routes
+app.use('/blogs', blogRoutes);
 
 // 404
 app.use((req, res) => {

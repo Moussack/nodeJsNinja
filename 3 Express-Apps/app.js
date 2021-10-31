@@ -31,7 +31,7 @@ app.use(morgan('dev')); // logging
 /* app.use('/styles', express.static(__dirname + '/styles')); */ // for custom folder
 /* ------------------------------------------------------------------------------------------------------- */
 
-// Routing
+/* Routing */
 app.get('/', (req, res) => {
    // redirects homepage '/' to blogs page
    res.redirect('/blogs');
